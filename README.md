@@ -16,7 +16,7 @@ Functional Detail:
             - Global exception handler
             - Facade Design Pattern
             - Rest Template
-            - Junit (Unit Test)
+            - Unit Test (Junit , Mockito)
             - Logger
 
  Front End : Thymeleaf
