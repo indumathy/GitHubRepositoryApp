@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>RepositoryInfo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+        crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
+  <script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+  <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark ">
+  <h2><a class="navbar-brand" href="#">Home</a></h2>
+
+</nav>
+
+<div class="container my-2">
+  <div class="card">
+    <div class="card-body">
+      <div th:switch="${students}" class="container my-5">
+
+        <p class="my-5">
+
+        <form th:action="@{/repository/search}" method="get">
+          <table>
+            <thead>
+            <tr>
+              <th> Search User Repository <input type="text" name="userName" id="userName" required th:value="${userName}"
+                               placeholder="enter user name"/>
+              </th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th><input type="submit" value="Search" class="btn btn-primary"/></th>
+            </tr>
+            </thead>
+          </table>
+        </form>
+        </p>
+        <div class="col-md-10">
+          <div th:if="${userRepoList != null && #lists.isEmpty(userRepoList.repositoryDetails) }">
+
+            <div class="p-3 mb-2 bg-warning text-dark">No Repository exist for the user
+
+              <b>
+                <div th:utext="${user}" th:remove="tag"></div>
+              </b>
+
+            </div>
+          </div>
+          <div th:if="${userRepoList != null && not #lists.isEmpty(userRepoList.repositoryDetails)  }">
+            <br>
+            <div class="p-3 mb-2 bg-info text-white">
+              <h2>  User
+                [<div th:utext="${user}" th:remove="tag"></div>]
+                 Repository List
+              </h2>
+            </div>
+            <br>
+            <table class="table table-striped table-responsive-md">
+              <thead>
+              <tr>
+                <th>RepoName</th>
+                <th>URL</th>
+                <th>Description</th>
+                <th>View</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="userRepo : ${userRepoList.repositoryDetails}">
+                <td th:text="${userRepo.name}"></td>
+                <td th:text="${userRepo.html_url}"></td>
+                <td th:text="${userRepo.description}"></td>
+                <td><a
+                    th:href="@{/repository/user/{user}/repository/{reponame}(user=${userRepoList.userName} , reponame=${userRepo.name})}"
+                    class="btn btn-primary"><i class="fas fa-eye ml-2"></i></a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
