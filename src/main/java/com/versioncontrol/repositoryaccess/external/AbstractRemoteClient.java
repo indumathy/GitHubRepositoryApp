@@ -10,6 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+/*
+Abstract class for client implementation
+ */
 @Slf4j
 public abstract class AbstractRemoteClient<C> {
 
@@ -21,6 +24,9 @@ public abstract class AbstractRemoteClient<C> {
     this.configuration = configuration;
   }
 
+  /*
+  add query param to url
+   */
   protected UriComponentsBuilder addStringQueryParameter(UriComponentsBuilder builder,
       String paramName, String value) {
     if (StringUtils.isNotEmpty(value)) {
@@ -29,6 +35,9 @@ public abstract class AbstractRemoteClient<C> {
     return builder;
   }
 
+  /*
+  Common method to initialize header
+   */
   public HttpEntity<Object> initializeHeaders() {
     HttpHeaders headers = new HttpHeaders();
     headers.setAccept(singletonList(MediaType.APPLICATION_JSON));

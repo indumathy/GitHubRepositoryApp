@@ -12,6 +12,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+/*
+Calling external client services
+ */
 @Component
 @Slf4j
 public class GitHubRemoteClient extends AbstractRemoteClient<GitHubRepoConfiguration> implements
@@ -22,6 +25,9 @@ public class GitHubRemoteClient extends AbstractRemoteClient<GitHubRepoConfigura
     super(configuration);
   }
 
+  /*
+  call github api - to fetch repo list
+   */
   @Override
   public Optional<RepositoryDetail[]> fetchRepoList(String userName) {
     log.info("-fetchRepoList-");
@@ -32,20 +38,26 @@ public class GitHubRemoteClient extends AbstractRemoteClient<GitHubRepoConfigura
     return Optional.ofNullable(response.getBody());
   }
 
+  /*
+call github api - to fetch pull request
+ */
   @Override
   public Optional<PullRequest[]> fetchpullRequest(String reponame, String user) {
     log.info("-fetchpullRequest-");
     HttpEntity<?> headers = initializeHeaders();
     ResponseEntity<PullRequest[]> response = remoteClient
-        .exchange(configuration.getFetchPullRequestUrl(), HttpMethod.GET, headers, PullRequest[].class,user,reponame);
+        .exchange(configuration.getFetchPullRequestUrl(), HttpMethod.GET, headers, PullRequest[].class, user, reponame);
     return Optional.ofNullable(response.getBody());
   }
 
+  /*
+call github api - to fetch comments details
+ */
   @Override
   public Optional<Comment[]> fetchCommentsUrl(String reponame, String user) {
     HttpEntity<?> headers = initializeHeaders();
     ResponseEntity<Comment[]> response = remoteClient
-        .exchange(configuration.getFetchCommentsUrl(), HttpMethod.GET, headers, Comment[].class,user,reponame);
+        .exchange(configuration.getFetchCommentsUrl(), HttpMethod.GET, headers, Comment[].class, user, reponame);
     return Optional.ofNullable(response.getBody());
   }
 

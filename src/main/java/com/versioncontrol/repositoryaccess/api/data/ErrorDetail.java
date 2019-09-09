@@ -7,9 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 
- * @author z022516
- * @version 1.0
+ * Custom error class
  */
 @NoArgsConstructor
 @AllArgsConstructor

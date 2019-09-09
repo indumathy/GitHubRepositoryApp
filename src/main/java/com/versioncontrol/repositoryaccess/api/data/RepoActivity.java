@@ -2,7 +2,9 @@ package com.versioncontrol.repositoryaccess.api.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
+/*
+Enum class to hold values of Repository activity description
+ */
 @Getter
 @AllArgsConstructor
 public enum RepoActivity {

@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/*
+This class holds data about repository activities (Pull Request, Comments , Commits )
+ */
 @Builder
 @Data
 @AllArgsConstructor

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/*
+RepositoryController - HTTP requests are handled for Repository app
+ */
 @Controller
 @AllArgsConstructor
 @RequestMapping(value = API_VERSION)
@@ -22,6 +25,9 @@ public class RepositoryController {
 
   private RepositoryService studentService;
 
+  /*
+  This request is for fetching repository list for given user
+   */
   @GetMapping(SEARCH_USER_REPO_LIST)
   public String searchUserRepoList(@RequestParam("userName") String userName, Model model) {
     log.info("-searchUserRepoList-");
@@ -30,7 +36,9 @@ public class RepositoryController {
     return "index";
   }
 
-
+  /*
+  This request is to fetch repository activity details for given repo of a user
+   */
   @GetMapping(GET_REPO_DETAILS)
   public String getRepoDetails(@PathVariable String reponame, @PathVariable String user, Model model) {
     log.info("-getRepoDetails-");

@@ -18,12 +18,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/*
+This class includes business logic implementation for each service
+ */
 @Service
 public class RepositoryService {
 
   @Autowired
   private RemoteServiceCallFacade remoteServiceCallFacade;
 
+  /*
+  searchUserRepoList - provides implementation for fetching Repository list for given user
+   */
   public UserLinkedToRepository searchUserRepoList(String user) {
 
     validateUserName(user);
@@ -34,6 +40,9 @@ public class RepositoryService {
 
   }
 
+  /*
+  call to github api - to fetch repolist
+   */
   private List<RepositoryDetail> populateRepositoryList(String user) {
 
     Optional<RepositoryDetail[]> repositoryDetails = remoteServiceCallFacade.fetchRepoList(user);
@@ -49,6 +58,9 @@ public class RepositoryService {
 
   }
 
+  /*
+   fetchRepositoryActivities - provides implementation for fetching Repository details for given repo
+    */
   public RepositoryActivities fetchRepositoryActivities(String repoName, String user) {
 
     List<PullRequest> repositoryDetailList = getPullRequestList(repoName, user);
@@ -69,21 +81,33 @@ public class RepositoryService {
     return RepositoryActivities.builder().repositoryActivities(repositoryActivities).build();
   }
 
+  /*
+  GitHub - populate Comments count
+   */
   private Long getCommentsCount(String reponame, String user) {
     Optional<Comment[]> comments = remoteServiceCallFacade.fetchCommentsUrl(reponame, user);
     return Long.valueOf((comments.isPresent() ? Arrays.asList(comments.get()).size() : 0));
   }
 
+  /*
+ GitHub - populate closed Pull request count
+  */
   private Long getClosedPullRequestCount(List<PullRequest> repositoryDetailList) {
     return repositoryDetailList.stream().filter(pullRequest -> (pullRequest.getState().equals("closed")))
-          .count();
+        .count();
   }
 
+  /*
+   GitHub - populate Open Pull request count
+    */
   private Long getOpenPullRequestCount(List<PullRequest> repositoryDetailList) {
     return repositoryDetailList.stream().filter(pullRequest -> pullRequest.getState().equals("open"))
-          .count();
+        .count();
   }
 
+  /*
+   GitHub - fetch pull request list
+    */
   private List<PullRequest> getPullRequestList(String reponame, String user) {
     Optional<PullRequest[]> pullRequests = remoteServiceCallFacade.fetchpullRequest(reponame, user);
     return (pullRequests.isPresent() ? Arrays.asList(pullRequests.get()) : emptyList());

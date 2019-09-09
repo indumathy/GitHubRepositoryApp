@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/*
+This class gives data about the list of repository linked to user
+ */
 @Builder
 @Data
 @AllArgsConstructor

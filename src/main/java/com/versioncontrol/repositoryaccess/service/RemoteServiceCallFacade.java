@@ -8,6 +8,9 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+/*
+Facade is implemented to route client call
+ */
 @Component
 @RequiredArgsConstructor
 public class RemoteServiceCallFacade {
@@ -20,7 +23,6 @@ public class RemoteServiceCallFacade {
     return gitHubRemoteServiceCall.fetchRepoList(userName);
   }
 
-
   public Optional<PullRequest[]> fetchpullRequest(String reponame, String user) {
     return gitHubRemoteServiceCall.fetchpullRequest(reponame, user);
   }
@@ -28,4 +30,6 @@ public class RemoteServiceCallFacade {
   public Optional<Comment[]> fetchCommentsUrl(String reponame, String user) {
     return gitHubRemoteServiceCall.fetchCommentsUrl(reponame, user);
   }
+
+  // later for some other clients
 }
